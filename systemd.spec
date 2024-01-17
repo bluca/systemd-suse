@@ -1,7 +1,7 @@
 #
 # spec file
 #
-# Copyright (c) 2023 SUSE LLC
+# Copyright (c) 2024 SUSE LLC
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -18,7 +18,7 @@
 
 %global flavor @BUILD_FLAVOR@%{nil}
 
-%define archive_version +suse.10.gb53f364c26
+%define archive_version +suse.22.g67a5ac1043
 
 %define _testsuitedir %{_systemd_util_dir}/tests
 %define xinitconfdir %{?_distconfdir}%{!?_distconfdir:%{_sysconfdir}}/X11/xinit
@@ -79,7 +79,7 @@ fi \
 
 Name:           systemd%{?mini}
 URL:            http://www.freedesktop.org/wiki/Software/systemd
-Version:        254.5
+Version:        254.8
 Release:        0
 Summary:        A System and Session Manager
 License:        LGPL-2.1-or-later
@@ -151,6 +151,7 @@ Requires(post): pam-config >= 0.79-5
 Recommends:     libpcre2-8-0
 Recommends:     libbpf0
 %endif
+Provides:       group(systemd-journal)
 Conflicts:      filesystem < 11.5
 Conflicts:      mkinitrd < 2.7.0
 Provides:       sbin_init
@@ -218,6 +219,8 @@ Patch5:         0008-sysv-generator-translate-Required-Start-into-a-Wants.patch
 # very few cases, some stuff might be broken in upstream and need to be fixed or
 # worked around quickly. In these cases, the patches are added temporarily and
 # will be removed as soon as a proper fix will be merged by upstream.
+Patch5001:      5001-Revert-udev-update-devlink-with-the-newer-device-nod.patch
+Patch5002:      5002-Revert-udev-revert-workarounds-for-issues-caused-by-.patch
 
 %description
 Systemd is a system and service manager, compatible with SysV and LSB
@@ -305,7 +308,9 @@ URL:            http://www.kernel.org/pub/linux/utils/kernel/hotplug/udev.html
 Requires:       %{name} = %{version}-%{release}
 %systemd_requires
 Requires:       filesystem
+%if %{without bootstrap}
 Requires:       kmod
+%endif
 Requires:       system-group-hardware
 Requires:       group(kvm)
 Requires:       group(lp)
@@ -715,12 +720,14 @@ export CFLAGS="%{optflags} -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2"
         -Drootprefix=/usr \
         -Dsplit-usr=true \
 %endif
+        -Dconfigfiledir=/usr/lib \
         -Dsplit-bin=true \
         -Dsystem-uid-max=499 \
         -Dsystem-gid-max=499 \
         -Dclock-valid-range-usec-max=946728000000000 \
         -Dadm-group=false \
         -Dwheel-group=false \
+        -Dgroup-render-mode=0660 \
         -Dutmp=false \
         -Ddefault-hierarchy=unified \
         -Ddefault-kill-user-processes=false \
@@ -756,6 +763,7 @@ export CFLAGS="%{optflags} -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2"
         -Dhtml=%{when_not bootstrap} \
         -Dima=%{when_not bootstrap} \
         -Dkernel-install=%{when_not bootstrap} \
+        -Dkmod=%{when_not bootstrap} \
         -Dlibcryptsetup-plugins=%{when_not bootstrap} \
         -Dman=%{when_not bootstrap} \
         -Dnss-myhostname=%{when_not bootstrap} \
@@ -825,18 +833,8 @@ install -m0755 -D %{SOURCE3} %{buildroot}/%{_systemd_util_dir}/systemd-update-he
 install -m0755 -D %{SOURCE4} %{buildroot}/%{_systemd_util_dir}/systemd-sysv-install
 %endif
 
-# For some reasons, upstream refuses to add a new build option (see pr#29244)
-# for customizing the installation path of main config files. However we want to
-# store them in /usr/lib so we don't encourage users to modify them while they
-# still can serve as templates.
-for f in %{buildroot}%{_sysconfdir}/systemd/*.conf; do
-	mv $f %{buildroot}%{_systemd_util_dir}/
-done
-for f in %{buildroot}%{_sysconfdir}/udev/*.conf; do
-	# Drop-ins are currently not supported by udevd.
-	[ $(basename $f) = "udev.conf" ] && continue
-	mv $f %{buildroot}%{_prefix}/lib/udev/
-done
+# Drop-ins are currently not supported by udev.
+mv %{buildroot}%{_prefix}/lib/udev/udev.conf %{buildroot}%{_sysconfdir}/udev/
 
 # Install the fixlets
 mkdir -p %{buildroot}%{_systemd_util_dir}/rpm
@@ -865,6 +863,10 @@ ln -s ../usr/bin/systemctl %{buildroot}/sbin/runlevel
 mkdir -p %{buildroot}%{_modprobedir}
 mv %{buildroot}/usr/lib/modprobe.d/* %{buildroot}%{_modprobedir}/
 %endif
+
+# Make sure /usr/lib/modules-load.d exists in udev(-mini)?, so other
+# packages can install modules without worry
+mkdir -p %{buildroot}%{_modulesloaddir}
 
 # Make sure we don't ship static enablement symlinks in /etc during
 # installation, presets should be honoured instead.

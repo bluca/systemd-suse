@@ -6913,4 +6913,75 @@ handle manual pages that consist only of a .so directive such as
   if build without utmp support&quot; has been backported.</comment>
     <requestid>1122219</requestid>
   </revision>
+  <revision rev="408" vrev="6">
+    <srcmd5>adf77ec2321780ae7aca48339725c113</srcmd5>
+    <version>254.5</version>
+    <time>1701533551</time>
+    <user>dimstar_suse</user>
+    <comment>- udev: Tighten permissions for DRM render nodes (bsc#1217118). Note that this
+  implicitly enables `uaccess`, so any logged-in user still gets access
+  regardless of group membership. Some use cases, e.g. remote access via ssh,
+  might require you to add the desired user to the `render` group.
+  See:
+  https://lists.opensuse.org/archives/list/factory@lists.opensuse.org/thread/3S3HAWVODHC2FQI4E76IFGCSRVRJ63KG/</comment>
+    <requestid>1130178</requestid>
+  </revision>
+  <revision rev="409" vrev="7">
+    <srcmd5>5b3e1a7e187653f8fdc1276a42908a7f</srcmd5>
+    <version>254.5</version>
+    <time>1702405898</time>
+    <user>dimstar_suse</user>
+    <comment>- Explicitely provide 'group(systemd-journal)' from the main package (bsc#1217852)
+
+- Import commit ce08cd5f66e1a661c2b9ed764ad7036decd76503
+  ce08cd5f66 man/standard-conf: directory paths should end with '/'
+  8324cbfde7 config files: update their header to reflect that they can be installed in /usr
+  bc36846ad2 Reflect the fact that main config files can be installed in /usr
+  e304a11f33 config files: more recommendations of `systemd-analyze cat-config`
+  c45cecf279 meson: add build option for install path of main config files
+  cc61b052c6 vconsole-setup: use a consistent log level when setfont fails with EX_OSERR (bsc#1212970)
+  4fe3653dab tmpfiles: ignore EINVAL with --graceful (bsc#1216628)</comment>
+    <requestid>1132619</requestid>
+  </revision>
+  <revision rev="410" vrev="8">
+    <srcmd5>a2d93faab1ebed410478e600da64a005</srcmd5>
+    <version>254.5</version>
+    <time>1703198243</time>
+    <user>anag+factory</user>
+    <comment>- udev: only require kmod in the full flavor. udev-mini is only
+  used inside OBS in a strictly defined setup and udev will never
+  have to load device drivers there.
+
+- Import commit 071ac409a0564863657d8f8a5a35e6a4f914695f
+  071ac409a0 rules: set up tty permissions and group for /dev/hvc* nodes
+  f693b3ed8a vconsole-setup: remember the correct error value when open_terminal() fails
+  963d838bad vconsole-setup: handle the case where the vc is in KD_GRAPHICS mode more gracefully (bsc#1215282)
+  6f53f71d2d vconsole-setup: simplify error handling</comment>
+    <requestid>1134212</requestid>
+  </revision>
+  <revision rev="411" vrev="1">
+    <srcmd5>5526dae81b5d9ccfa3ec1b2c98ef3b1e</srcmd5>
+    <version>254.8</version>
+    <time>1705255273</time>
+    <user>anag+factory</user>
+    <comment>- Add 5001-Revert-udev-update-devlink-with-the-newer-device-nod.patch
+      5002-Revert-udev-revert-workarounds-for-issues-caused-by-.patch
+  It seems that systemd upstream has a dubious way to fix broken code these
+  days... let's revert these hacks until a final decision is taken to solve
+  https://github.com/systemd/systemd/issues/28141. See also
+  https://github.com/systemd/systemd/pull/30075.
+
+- Import commit 67a5ac1043417d900bf417a884372ae14a96ef69 (merge of v254.8)
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/071ac409a0564863657d8f8a5a35e6a4f914695f...67a5ac1043417d900bf417a884372ae14a96ef69
+
+- udev(-mini)?: ensure %_modulesloaddir exists and is owned
+  properly. Allows other packages to install modules without worry
+  of the parent directory. We do not ensure /etc/modules-load.d
+  exists in the -mini flavor, as that directory is not meant to be
+  used by packages.
+
+  071ac409a0 rules: set up tty permissions and group for /dev/hvc* nodes (bsc#1218137)</comment>
+    <requestid>1138298</requestid>
+  </revision>
 </revisionlist>

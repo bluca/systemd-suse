@@ -1,4 +1,78 @@
 -------------------------------------------------------------------
+Fri Jan 12 10:12:15 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Add 5001-Revert-udev-update-devlink-with-the-newer-device-nod.patch
+      5002-Revert-udev-revert-workarounds-for-issues-caused-by-.patch
+
+  It seems that systemd upstream has a dubious way to fix broken code these
+  days... let's revert these hacks until a final decision is taken to solve
+  https://github.com/systemd/systemd/issues/28141. See also
+  https://github.com/systemd/systemd/pull/30075.
+
+-------------------------------------------------------------------
+Fri Jan 12 09:34:14 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Import commit 67a5ac1043417d900bf417a884372ae14a96ef69 (merge of v254.8)
+
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/071ac409a0564863657d8f8a5a35e6a4f914695f...67a5ac1043417d900bf417a884372ae14a96ef69
+
+-------------------------------------------------------------------
+Thu Dec 21 10:11:53 UTC 2023 - Dominique Leuenberger <dimstar@opensuse.org>
+
+- udev(-mini)?: ensure %_modulesloaddir exists and is owned
+  properly. Allows other packages to install modules without worry
+  of the parent directory. We do not ensure /etc/modules-load.d
+  exists in the -mini flavor, as that directory is not meant to be
+  used by packages.
+
+-------------------------------------------------------------------
+Wed Dec 20 12:49:09 UTC 2023 - Dominique Leuenberger <dimstar@opensuse.org>
+
+- udev: only require kmod in the full flavor. udev-mini is only
+  used inside OBS in a strictly defined setup and udev will never
+  have to load device drivers there.
+
+-------------------------------------------------------------------
+Wed Dec 20 12:40:55 UTC 2023 - Franck Bui <fbui@suse.com>
+
+- Import commit 071ac409a0564863657d8f8a5a35e6a4f914695f
+
+  071ac409a0 rules: set up tty permissions and group for /dev/hvc* nodes (bsc#1218137)
+  f693b3ed8a vconsole-setup: remember the correct error value when open_terminal() fails
+  963d838bad vconsole-setup: handle the case where the vc is in KD_GRAPHICS mode more gracefully (bsc#1215282)
+  6f53f71d2d vconsole-setup: simplify error handling
+
+-------------------------------------------------------------------
+Tue Dec 12 08:02:52 UTC 2023 - Franck Bui <fbui@suse.com>
+
+- Explicitely provide 'group(systemd-journal)' from the main package (bsc#1217852)
+
+-------------------------------------------------------------------
+Tue Dec 12 07:43:35 UTC 2023 - Franck Bui <fbui@suse.com>
+
+- Import commit ce08cd5f66e1a661c2b9ed764ad7036decd76503
+
+  ce08cd5f66 man/standard-conf: directory paths should end with '/'
+  8324cbfde7 config files: update their header to reflect that they can be installed in /usr
+  bc36846ad2 Reflect the fact that main config files can be installed in /usr
+  e304a11f33 config files: more recommendations of `systemd-analyze cat-config`
+  c45cecf279 meson: add build option for install path of main config files
+  cc61b052c6 vconsole-setup: use a consistent log level when setfont fails with EX_OSERR (bsc#1212970)
+  4fe3653dab tmpfiles: ignore EINVAL with --graceful (bsc#1216628)
+
+-------------------------------------------------------------------
+Tue Nov 21 13:57:52 UTC 2023 - Wolfgang Frisch <wolfgang.frisch@suse.com>
+
+- udev: Tighten permissions for DRM render nodes (bsc#1217118). Note that this
+  implicitly enables `uaccess`, so any logged-in user still gets access
+  regardless of group membership. Some use cases, e.g. remote access via ssh,
+  might require you to add the desired user to the `render` group.
+
+  See:
+  https://lists.opensuse.org/archives/list/factory@lists.opensuse.org/thread/3S3HAWVODHC2FQI4E76IFGCSRVRJ63KG/
+
+-------------------------------------------------------------------
 Thu Nov  2 08:56:57 UTC 2023 - Franck Bui <fbui@suse.com>
 
 - Disable utmp support
