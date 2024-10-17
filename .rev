@@ -7320,4 +7320,49 @@ handle manual pages that consist only of a .so directive such as
     <comment></comment>
     <requestid>1192932</requestid>
   </revision>
+  <revision rev="430" vrev="1">
+    <srcmd5>ffc6b320d0fcc3896fca9da32ad49247</srcmd5>
+    <version>256.5</version>
+    <time>1724163188</time>
+    <user>anag+factory</user>
+    <comment>- Import commit bef0958f4db1b774c23505e93537ffe16f1b3894 (merge of v256.5)
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/5bba1ebe17564b606cc5d1c07b14123c305019a7...bef0958f4db1b774c23505e93537ffe16f1b3894
+
+- Make the 32bit version of libudev.so available again (bsc#1228223)
+  The symlink for building 32bit applications was mistakenly dropped when the
+  content of libudev-devel was merged into systemd-devel.
+  Provide the 32bit flavor of systemd-devel again, which should restore the plug
+  and play support in Wine for 32bit windows applications.</comment>
+    <requestid>1194742</requestid>
+  </revision>
+  <revision rev="431" vrev="1">
+    <srcmd5>61775eba753de3a2c0e590a6dc1fef14</srcmd5>
+    <version>256.6</version>
+    <time>1727293954</time>
+    <user>anag+factory</user>
+    <comment>- Import commit 8a0ae4d90aff1d067a125ff9366eafc7dd5d4701 (merge of v256.6)
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/bef0958f4db1b774c23505e93537ffe16f1b3894...8a0ae4d90aff1d067a125ff9366eafc7dd5d4701
+
+- Don't try to restart the udev socket units anymore (bsc#1228809)
+  There's currently no way to restart a socket activable service and its socket
+  units &quot;atomically&quot; and safely.
+
+- Move 80-container-host0.network back to the network sub-package (bsc#1229098)
+  Rev 428 mistakenly moved it to the container sub-package.</comment>
+    <requestid>1202876</requestid>
+  </revision>
+  <revision rev="432" vrev="1">
+    <srcmd5>090feb74914f7d670b8109232efb17d4</srcmd5>
+    <version>256.7</version>
+    <time>1729183114</time>
+    <user>anag+factory</user>
+    <comment>- Import commit c7671762b39ead7f8f9e70064256f5efaccedeca (merge of v256.7)
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/8a0ae4d90aff1d067a125ff9366eafc7dd5d4701...c7671762b39ead7f8f9e70064256f5efaccedeca
+
+- Clean up some remnants from when homed was in the experimental sub-package (bsc#1231048)</comment>
+    <requestid>1206519</requestid>
+  </revision>
 </revisionlist>

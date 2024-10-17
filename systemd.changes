@@ -1,4 +1,59 @@
 -------------------------------------------------------------------
+Tue Oct  8 16:21:49 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Import commit c7671762b39ead7f8f9e70064256f5efaccedeca (merge of v256.7)
+
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/8a0ae4d90aff1d067a125ff9366eafc7dd5d4701...c7671762b39ead7f8f9e70064256f5efaccedeca
+
+-------------------------------------------------------------------
+Wed Oct  2 12:03:48 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Clean up some remnants from when homed was in the experimental sub-package (bsc#1231048)
+
+-------------------------------------------------------------------
+Wed Sep 18 09:31:40 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Import commit 8a0ae4d90aff1d067a125ff9366eafc7dd5d4701 (merge of v256.6)
+
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/bef0958f4db1b774c23505e93537ffe16f1b3894...8a0ae4d90aff1d067a125ff9366eafc7dd5d4701
+
+-------------------------------------------------------------------
+Tue Aug 27 08:04:14 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Don't try to restart the udev socket units anymore (bsc#1228809)
+
+  There's currently no way to restart a socket activable service and its socket
+  units "atomically" and safely.
+
+-------------------------------------------------------------------
+Mon Aug 26 10:51:51 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Move 80-container-host0.network back to the network sub-package (bsc#1229098)
+
+  Rev 428 mistakenly moved it to the container sub-package.
+
+-------------------------------------------------------------------
+Mon Aug 19 15:00:19 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Import commit bef0958f4db1b774c23505e93537ffe16f1b3894 (merge of v256.5)
+
+  For a complete list of changes, visit:
+  https://github.com/openSUSE/systemd/compare/5bba1ebe17564b606cc5d1c07b14123c305019a7...bef0958f4db1b774c23505e93537ffe16f1b3894
+
+-------------------------------------------------------------------
+Mon Aug 19 13:58:08 UTC 2024 - Franck Bui <fbui@suse.com>
+
+- Make the 32bit version of libudev.so available again (bsc#1228223)
+
+  The symlink for building 32bit applications was mistakenly dropped when the
+  content of libudev-devel was merged into systemd-devel.
+
+  Provide the 32bit flavor of systemd-devel again, which should restore the plug
+  and play support in Wine for 32bit windows applications.
+
+-------------------------------------------------------------------
 Fri Aug  2 10:29:26 UTC 2024 - Antonio Feijoo <antonio.feijoo@suse.com>
 
 - Order the update of udev and systemd-boot right after systemd (bsc#1228659)
