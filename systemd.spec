@@ -26,9 +26,9 @@
 %define systemd_release    %{?release_override}%{!?release_override:0}
 %define archive_version    %{nil}
 %else
-%define systemd_version    256.9
+%define systemd_version    256.10
 %define systemd_release    0
-%define archive_version    +suse.12.g290170c855
+%define archive_version    +suse.13.gf962392e1e
 %endif
 
 %define systemd_major      %{sub %systemd_version 1 3}
@@ -238,6 +238,7 @@ Patch:          5001-Revert-udev-update-devlink-with-the-newer-device-nod.patch
 Patch:          5002-Revert-udev-revert-workarounds-for-issues-caused-by-.patch
 Patch:          5004-disable-session-freeze.patch
 Patch:          5005-Revert-boot-Make-initrd_prepare-semantically-equival.patch
+Patch:          5006-tpm2-util-Also-retry-unsealing-after-policy_pcr-retu.patch
 %endif
 
 %description
