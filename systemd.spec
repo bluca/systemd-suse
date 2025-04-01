@@ -1070,12 +1070,6 @@ cat %{SOURCE14} >>%{buildroot}%{_datarootdir}/systemd/kbd-model-map
 # tests in dedicated VMs. During the copy, all symlinks are replaced by the
 # files they point to making sure we won't try to embed dangling symlinks.
 mkdir -p %{buildroot}%{_testsuitedir}/integration-tests
-tar -cO \
-    --dereference \
-    --exclude=testdata \
-    --exclude-vcs  \
-    --exclude-vcs-ignores \
-    -C test/ . | tar -xC %{buildroot}%{_testsuitedir}/integration-tests
 %endif
 
 %if %{without bootstrap}
@@ -1440,7 +1434,6 @@ fi
 
 %if %{with testsuite}
 %files testsuite
-%doc %{_testsuitedir}/integration-tests/README.*
 %{_testsuitedir}
 %endif
 
