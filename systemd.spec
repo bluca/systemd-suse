@@ -754,7 +754,6 @@ for the C APIs.
         -Dwheel-group=false \
         -Dgroup-render-mode=0660 \
         -Dutmp=false \
-        -Ddefault-hierarchy=unified \
         -Ddefault-kill-user-processes=false \
         -Dpamconfdir=no \
         -Dpamlibdir=%{_pam_moduledir} \
