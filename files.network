@@ -81,4 +81,8 @@
 %{_sysusersdir}/systemd-resolve.conf
 %{_tmpfilesdir}/systemd-resolve.conf
 %{_unitdir}/systemd-resolved.service
+%if %{with upstream}
+%{_unitdir}/systemd-resolved-monitor.socket
+%{_unitdir}/systemd-resolved-varlink.socket
+%endif
 %endif
