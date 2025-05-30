@@ -451,6 +451,10 @@
 %{_mandir}/man3/sd_device_enumerator_add_match_tag.3.gz
 %{_mandir}/man3/sd_device_enumerator_add_nomatch_sysname.3.gz
 %{_mandir}/man3/sd_device_enumerator_allow_uninitialized.3.gz
+%{_mandir}/man3/sd_device_enumerator_get_device_first.3.gz
+%{_mandir}/man3/sd_device_enumerator_get_device_next.3.gz
+%{_mandir}/man3/sd_device_enumerator_get_subsystem_first.3.gz
+%{_mandir}/man3/sd_device_enumerator_get_subsystem_next.3.gz
 %{_mandir}/man3/sd_device_enumerator_new.3.gz
 %{_mandir}/man3/sd_device_enumerator_ref.3.gz
 %{_mandir}/man3/sd_device_enumerator_unref.3.gz
