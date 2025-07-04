@@ -468,6 +468,7 @@
 %endif
 %if %{with upstream}
 %{_systemd_util_dir}/initrd-preset/90-systemd.preset
+%{_systemd_util_dir}/initrd-preset/99-default.preset
 %endif
 %{_systemd_util_dir}/journald.conf
 %{_systemd_util_dir}/logind.conf
