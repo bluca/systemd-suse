@@ -175,6 +175,7 @@
 %{_systemd_util_dir}/ukify
 %endif
 %if %{with upstream}
+%{_systemd_util_dir}/user/systemd-vmspawn@.service
 %{_systemdgeneratordir}/systemd-factory-reset-generator
 %endif
 # ssh-generator: in the futur to be moved to the main package
