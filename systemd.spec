@@ -743,6 +743,9 @@ for the C APIs.
 %else
         -Drc-local=/etc/init.d/boot.local \
 %endif
+%if %{with upstream}
+        -Dcompat-sysv-interfaces=%{when_not upstream} \
+%endif
         -Dcreate-log-dirs=false \
         -Ddebug-shell=/bin/bash \
         \

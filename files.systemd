@@ -208,6 +208,9 @@
 %{_datadir}/dbus-1/system.d/org.freedesktop.timedate1.conf
 %{_datadir}/mime/packages/io.systemd.xml
 %{_datadir}/pkgconfig/systemd.pc
+%if %{with upstream}
+%{_datadir}/polkit-1/actions/io.systemd.ask-password.policy
+%endif
 %{_datadir}/polkit-1/actions/io.systemd.credentials.policy
 %if %{with upstream}
 %{_datadir}/polkit-1/actions/io.systemd.sysext.policy

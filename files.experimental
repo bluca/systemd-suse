@@ -26,6 +26,7 @@
 %{_bindir}/oomctl
 %if %{with upstream}
 %{_bindir}/systemd-mute-console
+%{_bindir}/systemd-report
 %endif
 %{_bindir}/systemd-vmspawn
 %{_bindir}/updatectl
