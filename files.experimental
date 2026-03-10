@@ -11,6 +11,9 @@
 %if %{without bootstrap}
 %dir %{_sysconfdir}/systemd/oomd.conf.d
 %endif
+%if %{with upstream}
+%dir %{_systemd_util_dir}/oci-registry
+%endif
 %dir %{_unitdir}/factory-reset.target.wants
 %if %{with sd_boot}
 %dir %{_unitdir}/initrd.target.wants

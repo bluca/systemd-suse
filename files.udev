@@ -189,6 +189,9 @@
 %{_prefix}/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/300-present.pcrlock
 %{_prefix}/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/600-absent.pcrlock
 %{_prefix}/lib/pcrlock.d/750-enter-initrd.pcrlock
+%if %{with upstream}
+%{_prefix}/lib/pcrlock.d/770-nvpcr-separator.pcrlock
+%endif
 %{_prefix}/lib/pcrlock.d/800-leave-initrd.pcrlock
 %{_prefix}/lib/pcrlock.d/850-sysinit.pcrlock
 %{_prefix}/lib/pcrlock.d/900-ready.pcrlock
