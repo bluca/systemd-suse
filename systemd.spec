@@ -89,6 +89,11 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %if %{without bootstrap}
 BuildRequires:  bpftool
 BuildRequires:  clang
+%ifnarch %{ix86} %{arm}
+%if 0%{?suse_version} >= 1699
+BuildRequires:  linux-bpf-devel
+%endif
+%endif
 # python is only required for generating systemd.directives.xml
 BuildRequires:  python3-base >= 3.9.0
 BuildRequires:  python3-lxml
@@ -739,6 +744,12 @@ for the C APIs.
         -Dldconfig=false \
         -Dsmack=false \
         -Dvmlinux-h=disabled \
+%if %{without bootstrap} && 0%{?suse_version} >= 1699
+%ifnarch %{ix86} %{arm}
+        -Dvmlinux-h=provided \
+        -Dvmlinux-h-path=/usr/include/bpf/vmlinux.h \
+%endif
+%endif
         -Dxenctrl=disabled \
         -Dxkbcommon=disabled \
         \
