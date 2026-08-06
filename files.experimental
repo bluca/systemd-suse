@@ -45,6 +45,7 @@
 %{_datadir}/bash-completion/completions/systemd-sysinstall
 %if %{with upstream}
 %{_datadir}/bash-completion/completions/systemd-sysupdate
+%{_datadir}/bash-completion/completions/updatectl
 %endif
 %{_datadir}/dbus-1/interfaces/org.freedesktop.oom1.Manager.xml
 %{_datadir}/dbus-1/interfaces/org.freedesktop.sysupdate1.Job.xml
@@ -67,6 +68,7 @@
 %{_datadir}/zsh/site-functions/_systemd-sysinstall
 %if %{with upstream}
 %{_datadir}/zsh/site-functions/_systemd-sysupdate
+%{_datadir}/zsh/site-functions/_updatectl
 %endif
 %endif
 %{_distconfdir}/ssh/ssh_config.d/20-systemd-ssh-proxy.conf
@@ -153,6 +155,9 @@
 %{_mandir}/man8/systemd-report-sign-plain.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.socket.8.gz
 %{_mandir}/man8/systemd-report-sign-plain@.service.8.gz
+%{_mandir}/man8/systemd-report-sign-tpm2.8.gz
+%{_mandir}/man8/systemd-report-sign-tpm2.socket.8.gz
+%{_mandir}/man8/systemd-report-sign-tpm2@.service.8.gz
 %{_mandir}/man8/systemd-report-sign-tsm.8.gz
 %{_mandir}/man8/systemd-report-sign-tsm.socket.8.gz
 %{_mandir}/man8/systemd-report-sign-tsm@.service.8.gz
@@ -236,6 +241,7 @@
 %if %{with upstream}
 %{_systemd_util_dir}/systemd-report-files
 %{_systemd_util_dir}/systemd-report-sign-plain
+%{_systemd_util_dir}/systemd-report-sign-tpm2
 %{_systemd_util_dir}/systemd-report-sign-tsm
 %endif
 %if %{without bootstrap}
@@ -391,6 +397,8 @@
 %{_unitdir}/systemd-report-files@.service
 %{_unitdir}/systemd-report-sign-plain.socket
 %{_unitdir}/systemd-report-sign-plain@.service
+%{_unitdir}/systemd-report-sign-tpm2.socket
+%{_unitdir}/systemd-report-sign-tpm2@.service
 %{_unitdir}/systemd-report-sign-tsm.socket
 %{_unitdir}/systemd-report-sign-tsm@.service
 %{_unitdir}/systemd-report.socket
