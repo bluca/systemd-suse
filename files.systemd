@@ -465,6 +465,9 @@
 %{_mandir}/man8/systemd-userdbd.8.gz
 %{_mandir}/man8/systemd-userdbd.service.8.gz
 %{_mandir}/man8/systemd-xdg-autostart-generator.8.gz
+%if %{with upstream}
+%{_mandir}/man8/systemd-update-helper.8.gz
+%endif
 %endif
 %{_modprobedir}/systemd.conf
 %{_pam_moduledir}/pam_systemd.so
