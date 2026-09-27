@@ -153,9 +153,15 @@
 %{_mandir}/man8/systemd-pcrproduct.service.8.gz
 %endif
 %if %{with upstream}
+%{_mandir}/man8/systemd-report-diskspace.8.gz
+%{_mandir}/man8/systemd-report-diskspace.socket.8.gz
+%{_mandir}/man8/systemd-report-diskspace@.service.8.gz
 %{_mandir}/man8/systemd-report-files.8.gz
 %{_mandir}/man8/systemd-report-files.socket.8.gz
 %{_mandir}/man8/systemd-report-files@.service.8.gz
+%{_mandir}/man8/systemd-report-hwmon.8.gz
+%{_mandir}/man8/systemd-report-hwmon.socket.8.gz
+%{_mandir}/man8/systemd-report-hwmon@.service.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.socket.8.gz
 %{_mandir}/man8/systemd-report-sign-plain@.service.8.gz
@@ -243,7 +249,9 @@
 %{_systemd_util_dir}/systemd-report-basic
 %{_systemd_util_dir}/systemd-report-cgroup
 %if %{with upstream}
+%{_systemd_util_dir}/systemd-report-diskspace
 %{_systemd_util_dir}/systemd-report-files
+%{_systemd_util_dir}/systemd-report-hwmon
 %{_systemd_util_dir}/systemd-report-sign-plain
 %{_systemd_util_dir}/systemd-report-sign-tpm2
 %{_systemd_util_dir}/systemd-report-sign-tsm
@@ -401,8 +409,12 @@
 %{_unitdir}/systemd-report-cgroup.socket
 %{_unitdir}/systemd-report-cgroup@.service
 %if %{with upstream}
+%{_unitdir}/systemd-report-diskspace.socket
+%{_unitdir}/systemd-report-diskspace@.service
 %{_unitdir}/systemd-report-files.socket
 %{_unitdir}/systemd-report-files@.service
+%{_unitdir}/systemd-report-hwmon.socket
+%{_unitdir}/systemd-report-hwmon@.service
 %{_unitdir}/systemd-report-sign-plain.socket
 %{_unitdir}/systemd-report-sign-plain@.service
 %{_unitdir}/systemd-report-sign-tpm2.socket
