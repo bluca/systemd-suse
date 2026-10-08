@@ -126,6 +126,8 @@
 %{_mandir}/man8/systemd-imdsd.socket.8.gz
 %{_mandir}/man8/systemd-imdsd@.service.8.gz
 %if %{with upstream}
+%{_mandir}/man8/systemd-journald-metrics.socket.8.gz
+%{_mandir}/man8/systemd-logind-metrics.socket.8.gz
 %{_mandir}/man8/systemd-machine-tag@.service.8.gz
 %endif
 %{_mandir}/man8/systemd-oomd.8.gz
@@ -153,9 +155,18 @@
 %{_mandir}/man8/systemd-pcrproduct.service.8.gz
 %endif
 %if %{with upstream}
+%{_mandir}/man8/systemd-report-diskspace.8.gz
+%{_mandir}/man8/systemd-report-diskspace.socket.8.gz
+%{_mandir}/man8/systemd-report-diskspace@.service.8.gz
 %{_mandir}/man8/systemd-report-files.8.gz
 %{_mandir}/man8/systemd-report-files.socket.8.gz
 %{_mandir}/man8/systemd-report-files@.service.8.gz
+%{_mandir}/man8/systemd-report-hwmon.8.gz
+%{_mandir}/man8/systemd-report-hwmon.socket.8.gz
+%{_mandir}/man8/systemd-report-hwmon@.service.8.gz
+%{_mandir}/man8/systemd-report-netstat.8.gz
+%{_mandir}/man8/systemd-report-netstat.socket.8.gz
+%{_mandir}/man8/systemd-report-netstat@.service.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.socket.8.gz
 %{_mandir}/man8/systemd-report-sign-plain@.service.8.gz
@@ -243,7 +254,10 @@
 %{_systemd_util_dir}/systemd-report-basic
 %{_systemd_util_dir}/systemd-report-cgroup
 %if %{with upstream}
+%{_systemd_util_dir}/systemd-report-diskspace
 %{_systemd_util_dir}/systemd-report-files
+%{_systemd_util_dir}/systemd-report-hwmon
+%{_systemd_util_dir}/systemd-report-netstat
 %{_systemd_util_dir}/systemd-report-sign-plain
 %{_systemd_util_dir}/systemd-report-sign-tpm2
 %{_systemd_util_dir}/systemd-report-sign-tsm
@@ -361,6 +375,8 @@
 %{_unitdir}/systemd-journalctl.socket
 %{_unitdir}/systemd-journalctl@.service
 %if %{with upstream}
+%{_unitdir}/systemd-journald-metrics.socket
+%{_unitdir}/systemd-logind-metrics.socket
 %{_unitdir}/systemd-machine-tag@.service
 %endif
 %{_unitdir}/systemd-mute-console.socket
@@ -401,8 +417,14 @@
 %{_unitdir}/systemd-report-cgroup.socket
 %{_unitdir}/systemd-report-cgroup@.service
 %if %{with upstream}
+%{_unitdir}/systemd-report-diskspace.socket
+%{_unitdir}/systemd-report-diskspace@.service
 %{_unitdir}/systemd-report-files.socket
 %{_unitdir}/systemd-report-files@.service
+%{_unitdir}/systemd-report-hwmon.socket
+%{_unitdir}/systemd-report-hwmon@.service
+%{_unitdir}/systemd-report-netstat.socket
+%{_unitdir}/systemd-report-netstat@.service
 %{_unitdir}/systemd-report-sign-plain.socket
 %{_unitdir}/systemd-report-sign-plain@.service
 %{_unitdir}/systemd-report-sign-tpm2.socket
