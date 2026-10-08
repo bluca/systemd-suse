@@ -134,6 +134,8 @@ BuildRequires:  libxslt-tools
 BuildRequires:  python3-lxml
 %endif
 %if %{with upstream}
+BuildRequires:  rust
+BuildRequires:  rust-bindgen
 # The following packages are only required by the execution of the unit tests
 # during the 'check' section (currently only run for upstream builds).
 BuildRequires:  acl

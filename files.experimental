@@ -33,6 +33,9 @@
 %if %{without bootstrap}
 %{_bindir}/oomctl
 %endif
+%if %{with upstream}
+%{_bindir}/ptyctl
+%endif
 %{_bindir}/storagectl
 %{_bindir}/systemd-mstack
 %{_bindir}/systemd-mute-console
@@ -43,7 +46,13 @@
 %endif
 %{_bindir}/updatectl
 %{_datadir}/bash-completion/completions/oomctl
+%if %{with upstream}
+%{_datadir}/bash-completion/completions/ptyctl
+%endif
 %{_datadir}/bash-completion/completions/storagectl
+%if %{with upstream}
+%{_datadir}/bash-completion/completions/systemd-pty-forward
+%endif
 %{_datadir}/bash-completion/completions/systemd-sysinstall
 %if %{with upstream}
 %{_datadir}/bash-completion/completions/systemd-sysupdate
@@ -57,6 +66,14 @@
 %{_datadir}/dbus-1/system-services/org.freedesktop.sysupdate1.service
 %{_datadir}/dbus-1/system.d/org.freedesktop.oom1.conf
 %{_datadir}/dbus-1/system.d/org.freedesktop.sysupdate1.conf
+%endif
+%if %{with upstream}
+%{_datadir}/polkit-1/actions/io.systemd.PTYBroker.policy
+%endif
+%if %{without bootstrap}
+%if %{with upstream}
+%{_datadir}/polkit-1/actions/io.systemd.VarlinkMonitor.policy
+%endif
 %{_datadir}/polkit-1/actions/io.systemd.imds.policy
 %endif
 %{_datadir}/polkit-1/actions/io.systemd.storage.policy
@@ -66,7 +83,13 @@
 %endif
 %{_datadir}/polkit-1/actions/org.freedesktop.sysupdate1.policy
 %{_datadir}/zsh/site-functions/_oomctl
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_ptyctl
+%endif
 %{_datadir}/zsh/site-functions/_storagectl
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_systemd-pty-forward
+%endif
 %{_datadir}/zsh/site-functions/_systemd-sysinstall
 %if %{with upstream}
 %{_datadir}/zsh/site-functions/_systemd-sysupdate
@@ -78,6 +101,9 @@
 %{_mandir}/man1/mount.mstack.1.gz
 %{_mandir}/man1/mount.storage.1.gz
 %{_mandir}/man1/oomctl.1.gz
+%if %{with upstream}
+%{_mandir}/man1/ptyctl.1.gz
+%endif
 %{_mandir}/man1/storagectl.1.gz
 %{_mandir}/man1/systemd-imds-import.service.1.gz
 %{_mandir}/man1/systemd-imds.1.gz
@@ -94,12 +120,15 @@
 %{_mandir}/man1/updatectl.1.gz
 %if %{with upstream}
 %{_mandir}/man5/clonetab.5.gz
+%{_mandir}/man5/machine-tags.d.5.gz
 %endif
 %{_mandir}/man5/oomd.conf.5.gz
 %{_mandir}/man5/oomd.conf.d.5.gz
 %{_mandir}/man5/org.freedesktop.oom1.5.gz
 %{_mandir}/man5/org.freedesktop.sysupdate1.5.gz
 %if %{with upstream}
+%{_mandir}/man5/report-geoip.conf.5.gz
+%{_mandir}/man5/report-geoip.conf.d.5.gz
 %{_mandir}/man5/sysupdate.components.5.gz
 %endif
 %{_mandir}/man5/sysupdate.d.5.gz
@@ -113,6 +142,9 @@
 %{_mandir}/man8/systemd-clonesetup@.service.8.gz
 %{_mandir}/man8/systemd-coredump-register.service.8.gz
 %{_mandir}/man8/systemd-coredumpd.service.8.gz
+%if %{with sd_boot}
+%{_mandir}/man8/systemd-efivars-clear.service.8.gz
+%endif
 %endif
 %{_mandir}/man8/systemd-factory-reset-complete.service.8.gz
 %{_mandir}/man8/systemd-factory-reset-generator.8.gz
@@ -126,7 +158,12 @@
 %{_mandir}/man8/systemd-imdsd.socket.8.gz
 %{_mandir}/man8/systemd-imdsd@.service.8.gz
 %if %{with upstream}
+%{_mandir}/man8/systemd-journald-metrics.socket.8.gz
+%{_mandir}/man8/systemd-keyring-setup.8.gz
+%{_mandir}/man8/systemd-keyring-setup.service.8.gz
+%{_mandir}/man8/systemd-logind-metrics.socket.8.gz
 %{_mandir}/man8/systemd-machine-tag@.service.8.gz
+%{_mandir}/man8/systemd-machine-tags.service.8.gz
 %endif
 %{_mandir}/man8/systemd-oomd.8.gz
 %{_mandir}/man8/systemd-oomd.service.8.gz
@@ -153,9 +190,26 @@
 %{_mandir}/man8/systemd-pcrproduct.service.8.gz
 %endif
 %if %{with upstream}
+%{_mandir}/man8/systemd-ptybrokerd.8.gz
+%{_mandir}/man8/systemd-ptybrokerd.service.8.gz
+%{_mandir}/man8/systemd-report-diskhealth.8.gz
+%{_mandir}/man8/systemd-report-diskhealth.socket.8.gz
+%{_mandir}/man8/systemd-report-diskhealth@.service.8.gz
+%{_mandir}/man8/systemd-report-diskspace.8.gz
+%{_mandir}/man8/systemd-report-diskspace.socket.8.gz
+%{_mandir}/man8/systemd-report-diskspace@.service.8.gz
 %{_mandir}/man8/systemd-report-files.8.gz
 %{_mandir}/man8/systemd-report-files.socket.8.gz
 %{_mandir}/man8/systemd-report-files@.service.8.gz
+%{_mandir}/man8/systemd-report-geoip.8.gz
+%{_mandir}/man8/systemd-report-geoip.socket.8.gz
+%{_mandir}/man8/systemd-report-geoip@.service.8.gz
+%{_mandir}/man8/systemd-report-hwmon.8.gz
+%{_mandir}/man8/systemd-report-hwmon.socket.8.gz
+%{_mandir}/man8/systemd-report-hwmon@.service.8.gz
+%{_mandir}/man8/systemd-report-netstat.8.gz
+%{_mandir}/man8/systemd-report-netstat.socket.8.gz
+%{_mandir}/man8/systemd-report-netstat@.service.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.8.gz
 %{_mandir}/man8/systemd-report-sign-plain.socket.8.gz
 %{_mandir}/man8/systemd-report-sign-plain@.service.8.gz
@@ -223,15 +277,26 @@
 %endif
 %if %{without bootstrap}
 %{_systemd_util_dir}/oomd.conf
+%endif
+%if %{with upstream}
+%{_systemd_util_dir}/report-geoip.conf
+%endif
+%if %{without bootstrap}
 %{_systemd_util_dir}/systemd-bsod
 %endif
 %if %{with upstream}
 %{_systemd_util_dir}/systemd-clonesetup
+%if %{with sd_boot}
+%{_systemd_util_dir}/systemd-efivars-clear
+%endif
 %endif
 %{_systemd_util_dir}/systemd-factory-reset
 %if %{without bootstrap}
 %{_systemd_util_dir}/systemd-imds
 %{_systemd_util_dir}/systemd-imdsd
+%if %{with upstream}
+%{_systemd_util_dir}/systemd-keyring-setup
+%endif
 %{_systemd_util_dir}/systemd-keyutil
 %{_systemd_util_dir}/systemd-measure
 %{_systemd_util_dir}/systemd-oomd
@@ -239,11 +304,19 @@
 %if %{with sd_boot}
 %{_systemd_util_dir}/systemd-pcrextend
 %endif
+%if %{with upstream}
+%{_systemd_util_dir}/systemd-ptybrokerd
+%endif
 %{_systemd_util_dir}/systemd-report
 %{_systemd_util_dir}/systemd-report-basic
 %{_systemd_util_dir}/systemd-report-cgroup
 %if %{with upstream}
+%{_systemd_util_dir}/systemd-report-diskhealth
+%{_systemd_util_dir}/systemd-report-diskspace
 %{_systemd_util_dir}/systemd-report-files
+%{_systemd_util_dir}/systemd-report-geoip
+%{_systemd_util_dir}/systemd-report-hwmon
+%{_systemd_util_dir}/systemd-report-netstat
 %{_systemd_util_dir}/systemd-report-sign-plain
 %{_systemd_util_dir}/systemd-report-sign-tpm2
 %{_systemd_util_dir}/systemd-report-sign-tsm
@@ -267,6 +340,7 @@
 %endif
 %{_systemd_util_dir}/systemd-validatefs
 %if %{with upstream}
+%{_systemd_util_dir}/systemd-varlink-monitord
 %{_systemdgeneratordir}/systemd-clonesetup-generator
 %endif
 %{_systemdgeneratordir}/systemd-factory-reset-generator
@@ -309,6 +383,7 @@
 %if %{with upstream}
 %{_unitdir}/sockets.target.wants/systemd-sysinstall.socket
 %{_unitdir}/sockets.target.wants/systemd-sysupdate.socket
+%{_unitdir}/sockets.target.wants/systemd-varlink-monitord.socket
 %endif
 %if %{without bootstrap}
 %{_unitdir}/storage-target-mode.target
@@ -318,6 +393,16 @@
 %if %{with upstream}
 %{_unitdir}/sysinit.target.wants/clonesetup.target
 %endif
+%endif
+%if %{without bootstrap}
+%if %{with upstream}
+%{_unitdir}/sysinit.target.wants/systemd-keyring-setup.service
+%endif
+%endif
+%if %{with upstream}
+%{_unitdir}/sysinit.target.wants/systemd-machine-tags.service
+%endif
+%if %{with sd_boot}
 %{_unitdir}/sysinit.target.wants/systemd-pcrmachine.service
 %{_unitdir}/sysinit.target.wants/systemd-pcrnvdone.service
 %{_unitdir}/sysinit.target.wants/systemd-pcrosseparator.service
@@ -338,6 +423,9 @@
 %if %{with upstream}
 %{_unitdir}/systemd-coredump-register.service
 %{_unitdir}/systemd-coredumpd.service
+%if %{with sd_boot}
+%{_unitdir}/systemd-efivars-clear.service
+%endif
 %endif
 %{_unitdir}/systemd-factory-reset-complete.service
 %{_unitdir}/systemd-factory-reset-reboot.service
@@ -361,7 +449,13 @@
 %{_unitdir}/systemd-journalctl.socket
 %{_unitdir}/systemd-journalctl@.service
 %if %{with upstream}
+%{_unitdir}/systemd-journald-metrics.socket
+%if %{without bootstrap}
+%{_unitdir}/systemd-keyring-setup.service
+%endif
+%{_unitdir}/systemd-logind-metrics.socket
 %{_unitdir}/systemd-machine-tag@.service
+%{_unitdir}/systemd-machine-tags.service
 %endif
 %{_unitdir}/systemd-mute-console.socket
 %{_unitdir}/systemd-mute-console@.service
@@ -396,13 +490,27 @@
 %{_unitdir}/systemd-pcrphase.service
 %{_unitdir}/systemd-pcrproduct.service
 %endif
+%if %{with upstream}
+%{_unitdir}/systemd-ptybrokerd.service
+%{_unitdir}/systemd-ptybrokerd.socket
+%endif
 %{_unitdir}/systemd-report-basic.socket
 %{_unitdir}/systemd-report-basic@.service
 %{_unitdir}/systemd-report-cgroup.socket
 %{_unitdir}/systemd-report-cgroup@.service
 %if %{with upstream}
+%{_unitdir}/systemd-report-diskhealth.socket
+%{_unitdir}/systemd-report-diskhealth@.service
+%{_unitdir}/systemd-report-diskspace.socket
+%{_unitdir}/systemd-report-diskspace@.service
 %{_unitdir}/systemd-report-files.socket
 %{_unitdir}/systemd-report-files@.service
+%{_unitdir}/systemd-report-geoip.socket
+%{_unitdir}/systemd-report-geoip@.service
+%{_unitdir}/systemd-report-hwmon.socket
+%{_unitdir}/systemd-report-hwmon@.service
+%{_unitdir}/systemd-report-netstat.socket
+%{_unitdir}/systemd-report-netstat@.service
 %{_unitdir}/systemd-report-sign-plain.socket
 %{_unitdir}/systemd-report-sign-plain@.service
 %{_unitdir}/systemd-report-sign-tpm2.socket
@@ -453,10 +561,21 @@
 %{_unitdir}/systemd-tpm2-swtpm.service
 %endif
 %{_unitdir}/systemd-validatefs@.service
+%if %{with upstream}
+%{_unitdir}/systemd-varlink-monitord.socket
+%{_unitdir}/systemd-varlink-monitord@.service
+%endif
 %{_userunitdir}/sockets.target.wants/systemd-journalctl.socket
+%if %{with upstream}
+%{_userunitdir}/sockets.target.wants/systemd-ptybrokerd.socket
+%endif
 %{_userunitdir}/sockets.target.wants/systemd-storage-fs.socket
 %{_userunitdir}/systemd-journalctl.socket
 %{_userunitdir}/systemd-journalctl@.service
+%if %{with upstream}
+%{_userunitdir}/systemd-ptybrokerd.service
+%{_userunitdir}/systemd-ptybrokerd.socket
+%endif
 %{_userunitdir}/systemd-storage-fs.socket
 %{_userunitdir}/systemd-storage-fs@.service
 /usr/etc/profile.d/80-systemd-osc-context.sh
