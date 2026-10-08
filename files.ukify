@@ -10,6 +10,10 @@
 
 %dir %{_systemd_util_dir}/boot/hwids/
 %{_bindir}/ukify
+%if %{with upstream}
+%{_datadir}/bash-completion/completions/ukify
+%{_datadir}/zsh/site-functions/_ukify
+%endif
 %if %{with docs}
 %{_mandir}/man1/ukify.1.gz
 %endif

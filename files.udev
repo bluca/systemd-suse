@@ -15,6 +15,9 @@
 %if %{without bootstrap}
 %dir %{_prefix}/lib/kernel
 %dir %{_prefix}/lib/kernel/install.d
+%if %{with sd_boot}
+%dir %{_prefix}/lib/nvpcr
+%endif
 %dir %{_prefix}/lib/pcrlock.d
 %dir %{_prefix}/lib/pcrlock.d/400-secureboot-separator.pcrlock.d
 %dir %{_prefix}/lib/pcrlock.d/500-separator.pcrlock.d
@@ -76,6 +79,9 @@
 %{_datadir}/bash-completion/completions/kernel-install
 %{_datadir}/bash-completion/completions/systemd-cryptenroll
 %{_datadir}/bash-completion/completions/systemd-hwdb
+%if %{with upstream}
+%{_datadir}/bash-completion/completions/systemd-repart
+%endif
 %{_datadir}/bash-completion/completions/udevadm
 %endif
 %{_datadir}/dbus-1/system-services/org.freedesktop.timesync1.service
@@ -90,6 +96,9 @@
 %{_datadir}/zsh/site-functions/_kernel-install
 %{_datadir}/zsh/site-functions/_systemd-cryptenroll
 %{_datadir}/zsh/site-functions/_systemd-hwdb
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_systemd-repart
+%endif
 %{_datadir}/zsh/site-functions/_udevadm
 %{_libdir}/cryptsetup/libcryptsetup-token-systemd-fido2.so
 %{_libdir}/cryptsetup/libcryptsetup-token-systemd-pkcs11.so
@@ -197,6 +206,12 @@
 %{_mandir}/man8/systemd-timesyncd.service.8.gz
 %{_mandir}/man8/systemd-tmpfiles-setup-dev-early.service.8.gz
 %{_mandir}/man8/systemd-tmpfiles-setup-dev.service.8.gz
+%if %{with sd_boot}
+%{_mandir}/man8/systemd-tpm2-generator.8.gz
+%{_mandir}/man8/systemd-tpm2-setup-early.service.8.gz
+%{_mandir}/man8/systemd-tpm2-setup.8.gz
+%{_mandir}/man8/systemd-tpm2-setup.service.8.gz
+%endif
 %{_mandir}/man8/systemd-udev-settle.service.8.gz
 %{_mandir}/man8/systemd-udevd-kernel.socket.8.gz
 %{_mandir}/man8/systemd-udevd-varlink.socket.8.gz
@@ -216,6 +231,12 @@
 %{_prefix}/lib/kernel/install.d/50-depmod.install
 %{_prefix}/lib/kernel/install.d/90-loaderentry.install
 %{_prefix}/lib/kernel/install.d/90-uki-copy.install
+%if %{with sd_boot}
+%{_prefix}/lib/nvpcr/cryptsetup.nvpcr
+%{_prefix}/lib/nvpcr/hardware.nvpcr
+%{_prefix}/lib/nvpcr/login.nvpcr
+%{_prefix}/lib/nvpcr/verity.nvpcr
+%endif
 %{_prefix}/lib/pcrlock.d/350-action-efi-application.pcrlock
 %{_prefix}/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/300-0x00000000.pcrlock
 %{_prefix}/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/600-0xffffffff.pcrlock
@@ -297,6 +318,9 @@
 %{_systemd_util_dir}/systemd-rfkill
 %{_systemd_util_dir}/systemd-sleep
 %{_systemd_util_dir}/systemd-timesyncd
+%if %{with sd_boot}
+%{_systemd_util_dir}/systemd-tpm2-setup
+%endif
 %{_systemd_util_dir}/systemd-udevd
 %if %{without bootstrap}
 %{_systemd_util_dir}/systemd-vconsole-setup
@@ -315,6 +339,9 @@
 %{_systemdgeneratordir}/systemd-hibernate-resume-generator
 %if %{without bootstrap}
 %{_systemdgeneratordir}/systemd-integritysetup-generator
+%if %{with sd_boot}
+%{_systemdgeneratordir}/systemd-tpm2-generator
+%endif
 %{_systemdgeneratordir}/systemd-veritysetup-generator
 %endif
 %{_sysusersdir}/systemd-timesync.conf
@@ -336,12 +363,18 @@
 %{_udevhwdbdir}/60-autosuspend-chromiumos.hwdb
 %{_udevhwdbdir}/60-autosuspend-fingerprint-reader.hwdb
 %{_udevhwdbdir}/60-autosuspend.hwdb
+%if %{with upstream}
+%{_udevhwdbdir}/60-block.hwdb
+%endif
 %{_udevhwdbdir}/60-evdev.hwdb
 %{_udevhwdbdir}/60-input-id.hwdb
 %{_udevhwdbdir}/60-keyboard.hwdb
 %{_udevhwdbdir}/60-seat.hwdb
 %{_udevhwdbdir}/60-sensor.hwdb
 %{_udevhwdbdir}/60-tpm2.hwdb
+%if %{with upstream}
+%{_udevhwdbdir}/60-usb-interface.hwdb
+%endif
 %{_udevhwdbdir}/70-analyzers.hwdb
 %{_udevhwdbdir}/70-av-production.hwdb
 %{_udevhwdbdir}/70-cameras.hwdb
@@ -378,11 +411,17 @@
 %{_udevrulesdir}/60-persistent-storage-mtd.rules
 %{_udevrulesdir}/60-persistent-storage-tape.rules
 %{_udevrulesdir}/60-persistent-storage.rules
+%if %{with upstream}
+%{_udevrulesdir}/60-persistent-usb.rules
+%endif
 %{_udevrulesdir}/60-persistent-v4l.rules
 %{_udevrulesdir}/60-sensor.rules
 %{_udevrulesdir}/60-serial.rules
 %if %{without bootstrap}
 %{_udevrulesdir}/60-tpm2-id.rules
+%if %{with upstream}
+%{_udevrulesdir}/61-block-hwdb.rules
+%endif
 %endif
 %{_udevrulesdir}/64-btrfs.rules
 %{_udevrulesdir}/65-integration.rules
@@ -485,6 +524,10 @@
 %{_unitdir}/sysinit.target.wants/systemd-random-seed.service
 %{_unitdir}/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service
 %{_unitdir}/sysinit.target.wants/systemd-tmpfiles-setup-dev.service
+%if %{with sd_boot}
+%{_unitdir}/sysinit.target.wants/systemd-tpm2-setup-early.service
+%{_unitdir}/sysinit.target.wants/systemd-tpm2-setup.service
+%endif
 %{_unitdir}/sysinit.target.wants/systemd-udev-trigger.service
 %{_unitdir}/sysinit.target.wants/systemd-udevd.service
 %if %{without bootstrap}
@@ -528,6 +571,7 @@
 %{_unitdir}/systemd-pcrfs-root.service
 %{_unitdir}/systemd-pcrfs@.service
 %{_unitdir}/systemd-pcrlock.socket
+%{_unitdir}/systemd-pcrlock@.service
 %{_unitdir}/systemd-pcrlogin@.service
 %{_unitdir}/systemd-pcrmachine.service
 %{_unitdir}/systemd-pcrnvdone.service
@@ -556,6 +600,10 @@
 %{_unitdir}/systemd-timesyncd.service
 %{_unitdir}/systemd-tmpfiles-setup-dev-early.service
 %{_unitdir}/systemd-tmpfiles-setup-dev.service
+%if %{with sd_boot}
+%{_unitdir}/systemd-tpm2-setup-early.service
+%{_unitdir}/systemd-tpm2-setup.service
+%endif
 %{_unitdir}/systemd-udev-load-credentials.service
 %{_unitdir}/systemd-udev-settle.service
 %{_unitdir}/systemd-udev-trigger.service
