@@ -70,6 +70,11 @@
 %{_datadir}/zsh/site-functions/_sd_machines
 %endif
 %{_datadir}/zsh/site-functions/_systemd-nspawn
+%if %{without bootstrap}
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_systemd-vmspawn
+%endif
+%endif
 %if %{with machined}
 %{_libdir}/libnss_mymachines.so.2
 %endif
@@ -146,7 +151,6 @@
 %endif
 %{_systemd_util_dir}/user/systemd-nspawn@.service
 %if %{without bootstrap}
-%{_systemd_util_dir}/user/systemd-vmspawn@.service
 %{_systemd_util_dir}/user/systemd-vmspawn@.service
 %endif
 %if %{with importd}

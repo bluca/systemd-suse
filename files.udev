@@ -70,6 +70,9 @@
 %{_datadir}/bash-completion/completions/kernel-install
 %{_datadir}/bash-completion/completions/systemd-cryptenroll
 %{_datadir}/bash-completion/completions/systemd-hwdb
+%if %{with upstream}
+%{_datadir}/bash-completion/completions/systemd-repart
+%endif
 %{_datadir}/bash-completion/completions/udevadm
 %endif
 %{_datadir}/dbus-1/system-services/org.freedesktop.timesync1.service
@@ -86,6 +89,9 @@
 %{_datadir}/zsh/site-functions/_systemd-cryptenroll
 %endif
 %{_datadir}/zsh/site-functions/_systemd-hwdb
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_systemd-repart
+%endif
 %{_datadir}/zsh/site-functions/_udevadm
 %{_libdir}/cryptsetup/libcryptsetup-token-systemd-fido2.so
 %{_libdir}/cryptsetup/libcryptsetup-token-systemd-pkcs11.so
@@ -317,12 +323,18 @@
 %{_udevhwdbdir}/60-autosuspend-chromiumos.hwdb
 %{_udevhwdbdir}/60-autosuspend-fingerprint-reader.hwdb
 %{_udevhwdbdir}/60-autosuspend.hwdb
+%if %{with upstream}
+%{_udevhwdbdir}/60-block.hwdb
+%endif
 %{_udevhwdbdir}/60-evdev.hwdb
 %{_udevhwdbdir}/60-input-id.hwdb
 %{_udevhwdbdir}/60-keyboard.hwdb
 %{_udevhwdbdir}/60-seat.hwdb
 %{_udevhwdbdir}/60-sensor.hwdb
 %{_udevhwdbdir}/60-tpm2.hwdb
+%if %{with upstream}
+%{_udevhwdbdir}/60-usb-interface.hwdb
+%endif
 %{_udevhwdbdir}/70-analyzers.hwdb
 %{_udevhwdbdir}/70-av-production.hwdb
 %{_udevhwdbdir}/70-cameras.hwdb
@@ -361,10 +373,16 @@
 %{_udevrulesdir}/60-persistent-storage-mtd.rules
 %{_udevrulesdir}/60-persistent-storage-tape.rules
 %{_udevrulesdir}/60-persistent-storage.rules
+%if %{with upstream}
+%{_udevrulesdir}/60-persistent-usb.rules
+%endif
 %{_udevrulesdir}/60-persistent-v4l.rules
 %{_udevrulesdir}/60-sensor.rules
 %{_udevrulesdir}/60-serial.rules
 %{_udevrulesdir}/60-tpm2-id.rules
+%if %{with upstream}
+%{_udevrulesdir}/61-block-hwdb.rules
+%endif
 %{_udevrulesdir}/64-btrfs.rules
 %{_udevrulesdir}/65-integration.rules
 %{_udevrulesdir}/70-camera.rules
