@@ -170,6 +170,9 @@
 %{_datadir}/bash-completion/completions/systemd-detect-virt
 %{_datadir}/bash-completion/completions/systemd-dissect
 %{_datadir}/bash-completion/completions/systemd-id128
+%if %{with upstream}
+%{_datadir}/bash-completion/completions/systemd-notify
+%endif
 %{_datadir}/bash-completion/completions/systemd-path
 %{_datadir}/bash-completion/completions/systemd-run
 %{_datadir}/bash-completion/completions/systemd-sysext
@@ -253,11 +256,17 @@
 %{_datadir}/zsh/site-functions/_systemd
 %{_datadir}/zsh/site-functions/_systemd-analyze
 %{_datadir}/zsh/site-functions/_systemd-delta
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_systemd-dissect
+%endif
 %{_datadir}/zsh/site-functions/_systemd-id128
 %{_datadir}/zsh/site-functions/_systemd-inhibit
 %{_datadir}/zsh/site-functions/_systemd-path
 %{_datadir}/zsh/site-functions/_systemd-run
 %{_datadir}/zsh/site-functions/_systemd-tmpfiles
+%if %{with upstream}
+%{_datadir}/zsh/site-functions/_systemd-vpick
+%endif
 %{_datadir}/zsh/site-functions/_timedatectl
 %{_datadir}/zsh/site-functions/_userdbctl
 %{_datadir}/zsh/site-functions/_varlinkctl
